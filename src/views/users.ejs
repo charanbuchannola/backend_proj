@@ -8,17 +8,17 @@
     <div class="max-w-2xl mx-auto">
         <h1 class="text-3xl font-bold mb-8 text-center">Users</h1>
         
-        <div class="space-y-4">
+        <div class="space-y-4 ">
             <% users.forEach(user => { %>
-                <div class="bg-black p-4 rounded-lg flex items-center justify-between">
+                <div class="bg-black p-8 rounded-lg flex items-center justify-between ">
                     <div class="flex items-center space-x-3">
                         <img src="<%= user.image %>" 
                              alt="<%= user.username %>'s profile" 
-                             class="w-10 h-10 rounded-full object-cover border-2 border-red-500">
-                        <span class="text-white font-medium"><%= user.username %></span>
+                             class="w-20 h-20 rounded-full object-cover border-2 border-red-500">
+                        <span class="text-white font-medium text-2xl"><%= user.username %></span>
                     </div>
                     <a href="/users/profile/<%= user._id %>" 
-                       class="bg-white text-black px-4 py-1 rounded-full text-sm hover:bg-gray-100 transition-colors">
+                       class="bg-white text-black px-8 py-4 rounded-full text-sm hover:bg-gray-100 transition-colors ">
                         Details
                     </a>
                 </div>

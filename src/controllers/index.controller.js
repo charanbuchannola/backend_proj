@@ -5,17 +5,36 @@ module.exports.indexController = (req, res) => {
 };
 
 module.exports.userController = async (req, res) => {
-  const users = await userModel.find();
-  res.render("users", { users });
-  let { username, email, age, image } = req.body;
-  createUser(username, email, age, image);
+  try {
+    // First, get the data from the request body
+    let { username, email, age, image } = req.body;
+    
+    // Create the user
+    await createUser(username, email, age, image);
+    
+    // Redirect to the users page
+    return res.redirect('/users');
+  } catch (error) {
+    console.error(error);
+    res.status(500).render('error', { message: 'Server error' });
+  }
 };
 
-module.exports.profilecontroller = async (req, res) => {
-  let id = req.params.id;
 
-  res.send("hello world");
-  console.log(id);
+module.exports.profilecontroller = async (req, res) => {
+  try {
+    let id = req.params.id;
+    const user = await userModel.findById(id);
+    
+    if (!user) {
+      return res.status(404).render('error', { message: 'User not found' });
+    }
+    
+    res.render('profile', { user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).render('error', { message: 'Server error' });
+  }
 };
 
 const createUser = async (username, email, age, image) => {
